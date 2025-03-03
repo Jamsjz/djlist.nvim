@@ -15,9 +15,10 @@ M.showViewURLS = function()
     return
   end
 
-  print(ts_utils.get_node_text(view)[1])
+  local bufnr = vim.api.nvim_get_current_buf()
 
-  local viewName = ts_utils.get_node_text(view)[1]
+  local viewName = ts_utils.get_node_text(view, bufnr)[1]
+
   local sRow, _, _, _ = viewBody:range()
 
   bridge.runPython({ viewName = viewName, rowNo = sRow })
