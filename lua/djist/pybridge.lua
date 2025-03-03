@@ -44,7 +44,7 @@ M.runPython = function(args)
   M.urls = {}
   local stdout = uv.new_pipe(false)
   local stderr = uv.new_pipe(false)
-  local pythonVenvPath = vim.env.VIRTUAL_ENV
+  local pythonVenvPath = "~/.conda/envs/lrndjango"
 
   local function extractURLS(input_data)
     return table.concat(input_data)
