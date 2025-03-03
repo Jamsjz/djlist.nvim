@@ -14,8 +14,7 @@ local function parseQuery()
   end)
 
   if not success then
-    local errorMessage = debug.traceback()
-    error("Failed to parse query for language '" .. lang .. "':\n" .. errorMessage)
+    error("Failed to parse query for language '" .. lang .. "'. Ensure the parser is installed and the query is valid.")
   end
 
   return parsedQuery
@@ -23,12 +22,6 @@ end
 
 local function parseBuffer()
   local parser = vim.treesitter.get_parser(bufNo, lang)
-
-  -- Check if parser is available
-  if not parser then
-    error("No parser available for language '" .. lang .. "'.")
-  end
-
   local syntaxTree = parser:parse()
   return syntaxTree[1]:root()
 end
@@ -45,24 +38,14 @@ end
 M.getViewNodes = function()
   local root = parseBuffer()
   local parsedQuery = parseQuery()
-  print("Parsed Query:", parsedQuery)
-  print("Detected Language:", lang)
-
   local cursorRow = vim.api.nvim_win_get_cursor(0)[1]
-
   for _, capturedNodes, _ in parsedQuery:iter_matches(root, bufNo) do
     local klass, klassDefinition = capturedNodes[1], capturedNodes[2]
     local sRow, _, eRow, _ = klassDefinition:range()
     M.viewRowRange = { sRow, eRow }
-
     if isCursorInClass(sRow, eRow, cursorRow) then
       return klass, klassDefinition
     end
   end
-
-  print("No matches found for the query.")
-  -- Explicitly return nil if no matches are found
-  return nil, nil
 end
-
 return M
