@@ -24,12 +24,26 @@ local function onerr(err, data)
 end
 
 local function getPythonScript()
-  local script = vim.api.nvim_get_runtime_file('**/djist/scripts/', false)[1]
-  if script == '' then
+  -- Find all matching paths for the script directory
+  local scriptDir = vim.api.nvim_get_runtime_file('**/djist/scripts/', false)[1]
+
+  -- Check if a valid directory was found
+  if not scriptDir or scriptDir == '' then
     error(
-    'Could not find the Python script. It should be inside <runtimedir>/djist/scripts/ where runtimedir is a directory present in the runtimepath.')
+      'Could not find the Python script. It should be inside <runtimedir>/djist/scripts/ where runtimedir is a directory present in the runtimepath.'
+    )
   end
-  return script .. 'get_urls.py'
+
+  -- Construct the full path to the Python script
+  local script = scriptDir .. 'get_urls.py'
+
+  -- Check if the constructed path is valid (optional but recommended)
+  local fileExists = vim.loop.fs_stat(script)
+  if not fileExists then
+    error('Python script "get_urls.py" does not exist at: ' .. script)
+  end
+
+  return script
 end
 
 M.runPython = function(args)
