@@ -14,7 +14,8 @@ local function parseQuery()
   end)
 
   if not success then
-    error('The buffer could not be parsed properly. Is it a Python file?')
+    local errorMessage = debug.traceback()
+    error("Failed to parse query: " .. errorMessage)
   end
   return parsedQuery
 end
