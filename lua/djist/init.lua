@@ -1,7 +1,7 @@
 local M = {}
 local nodes = require('djist.nodes')
-local ts_utils = require('nvim-treesitter.ts_utils')
 local bridge = require('djist.pybridge')
+local ts_utils = vim.treesitter
 
 M.showViewURLS = function()
   local view, viewBody = nodes.getViewNodes()
