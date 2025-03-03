@@ -16,6 +16,7 @@ local function parseQuery()
   if not success then
     error("Failed to parse query for language '" .. lang .. "'. Ensure the parser is installed and the query is valid.")
   end
+  error(tostring(parsedQuery))
 
   return parsedQuery
 end
