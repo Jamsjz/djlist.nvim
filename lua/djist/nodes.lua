@@ -39,6 +39,7 @@ M.getViewNodes = function()
   local root = parseBuffer()
   local parsedQuery = parseQuery()
   local cursorRow = vim.api.nvim_win_get_cursor(0)[1]
+  print(lang)
 
   for _, capturedNodes, _ in parsedQuery:iter_matches(root, bufNo) do
     local klass, klassDefinition = capturedNodes[1], capturedNodes[2]
@@ -50,6 +51,7 @@ M.getViewNodes = function()
     end
   end
 
+  print(lang)
   -- Explicitly return nil if no matches are found
   return nil, nil
 end
