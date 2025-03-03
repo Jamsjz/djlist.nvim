@@ -26,15 +26,17 @@ end
 local function getPythonScript()
   local scriptDir = vim.api.nvim_get_runtime_file('**/djlist.nvim/scripts/', false)[1]
   if not scriptDir or scriptDir == '' then
-    error(
-      'Could not find the Python script. It should be inside <runtimedir>/djlist.nvim/scripts/ where runtimedir is a directory present in the runtimepath.'
-    )
+    scriptDir = "/home/viola/.local/share/nvim/lazy/djlist.nvim/scripts"
+    -- error(
+    --   'Could not find the Python script. It should be inside <runtimedir>/djlist.nvim/scripts/ where runtimedir is a directory present in the runtimepath.'
+    -- )
   end
-  local script = scriptDir .. 'get_urls.py'
+  local script = scriptDir .. '/get_urls.py'
   local fileExists = vim.loop.fs_stat(script)
   if not fileExists then
     error('Python script "get_urls.py" does not exist at: ' .. script)
   end
+
   return script
 end
 
