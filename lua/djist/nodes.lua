@@ -1,7 +1,7 @@
 local utils = require('djist.utils')
 local M = {}
 local bufNo = utils.getBufNo()
-local lang = utils.getLang()
+local lang = "python"
 
 local function parseQuery()
   local query = [[
