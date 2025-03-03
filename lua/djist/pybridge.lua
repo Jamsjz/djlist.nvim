@@ -25,12 +25,12 @@ end
 
 local function getPythonScript()
   -- Find all matching paths for the script directory
-  local scriptDir = vim.api.nvim_get_runtime_file('**/djist/scripts/', false)[1]
+  local scriptDir = vim.api.nvim_get_runtime_file('**/djlist.nvim/scripts/', false)[1]
 
   -- Check if a valid directory was found
   if not scriptDir or scriptDir == '' then
     error(
-      'Could not find the Python script. It should be inside <runtimedir>/djist/scripts/ where runtimedir is a directory present in the runtimepath.'
+      'Could not find the Python script. It should be inside <runtimedir>/djlist.nvim/scripts/ where runtimedir is a directory present in the runtimepath.'
     )
   end
 
