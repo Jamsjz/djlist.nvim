@@ -11,12 +11,15 @@ M.showViewURLS = function()
   print("viewBody:", viewBody)
 
   if not view or not viewBody then
-    error("Failed to retrieve view or viewBody. Ensure the query matches and the parser is installed.")
+    print("No matching nodes found. Ensure your query is correct and the filetype is supported.")
+    return
   end
 
   print(ts_utils.get_node_text(view)[1])
+
   local viewName = ts_utils.get_node_text(view)[1]
   local sRow, _, _, _ = viewBody:range()
+
   bridge.runPython({ viewName = viewName, rowNo = sRow })
 end
 
