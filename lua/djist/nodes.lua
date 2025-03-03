@@ -7,16 +7,16 @@ local function parseQuery()
   local query = [[
     (class_definition
     name: (identifier) @class_name) @class
-    ]]
+  ]]
 
   local success, parsedQuery = pcall(function()
-    return vim.treesitter.parse_query(lang, query)
+    return vim.treesitter.query.parse(lang, query)
   end)
 
   if not success then
-    local errorMessage = debug.traceback()
-    error("Failed to parse query: " .. errorMessage)
+    error("Failed to parse query for language '" .. lang .. "'. Ensure the parser is installed and the query is valid.")
   end
+
   return parsedQuery
 end
 
